@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "build:springboot": "BASE_URL=/ui/ OUT_DIR=../a-solid-observe/observe-bootstrap/src/main/resources/static/ui vite build",
     "lint": "oxlint",
     "preview": "vite preview",
     "test": "vitest run",
