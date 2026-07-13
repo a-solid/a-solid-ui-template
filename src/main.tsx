@@ -6,12 +6,14 @@ import { Toaster } from '@/components/ui/sonner'
 import '@/index.css'
 import { Home } from '@/routes/home'
 import { About } from '@/routes/about'
+import { Health } from '@/routes/health'
 
 const queryClient = new QueryClient()
 
 const router = createBrowserRouter([
   { path: '/', element: <Home /> },
   { path: '/about', element: <About /> },
+  { path: '/health', element: <Health /> },
 ])
 
 createRoot(document.getElementById('root')!).render(
