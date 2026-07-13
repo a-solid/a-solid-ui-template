@@ -46,6 +46,7 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import { toast } from 'sonner'
+import { GroovyEditor } from '@/components/groovy-editor'
 
 /** 一个分组容器，统一标题 + 描述 + 内容间距 */
 function Section({
@@ -78,6 +79,15 @@ const users = [
 
 export function Components() {
   const [email, setEmail] = useState('')
+  const [groovy, setGroovy] = useState(
+    `// 示例：一个简单的 Groovy 规则脚本
+def process(evt) {
+    if (evt.level == 'ERROR') {
+        return [alert: true, message: "错误事件: " + evt.msg]
+    }
+    return [alert: false]
+}`,
+  )
 
   return (
     <main className="container mx-auto max-w-5xl space-y-10 p-8">
@@ -348,6 +358,56 @@ export function Components() {
           >
             带描述
           </Button>
+        </div>
+      </Section>
+
+      {/* GroovyEditor */}
+      <Section
+        title="GroovyEditor"
+        description="CodeMirror 6 + Java 近似高亮；语法校验交后端，组件只管文本进出"
+      >
+        <div className="space-y-4">
+          <div className="space-y-1.5">
+            <Label>可编辑（受控）</Label>
+            <GroovyEditor
+              value={groovy}
+              onChange={setGroovy}
+              minHeight="180px"
+            />
+            <p className="text-xs text-muted-foreground">
+              当前字节数：{new Blob([groovy]).size}
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-3">
+            <Button
+              size="sm"
+              onClick={() =>
+                toast.success('已提交', {
+                  description: `共 ${groovy.length} 字符已发送到后端（模拟）`,
+                })
+              }
+            >
+              提交到后端
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => {
+                navigator.clipboard?.writeText(groovy)
+                toast.success('已复制到剪贴板')
+              }}
+            >
+              复制
+            </Button>
+          </div>
+          <div className="space-y-1.5">
+            <Label>只读模式</Label>
+            <GroovyEditor
+              value={'// 只读展示：用户无法编辑\ndef version = "1.0.0"\nprintln version'}
+              readOnly
+              minHeight="80px"
+            />
+          </div>
         </div>
       </Section>
 
