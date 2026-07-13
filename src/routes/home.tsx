@@ -7,9 +7,17 @@ export function Home() {
       <p className="text-muted-foreground">
         监控 / 后台面板脚手架。消费后端 <code>/api</code> 接口。
       </p>
-      <a href="/about" className={buttonVariants()}>
-        前往 About
-      </a>
+      <div className="flex flex-wrap gap-3">
+        <a href="/components" className={buttonVariants()}>
+          查看组件展示
+        </a>
+        <a
+          href="/about"
+          className={buttonVariants({ variant: 'outline' })}
+        >
+          前往 About
+        </a>
+      </div>
     </main>
   )
 }
